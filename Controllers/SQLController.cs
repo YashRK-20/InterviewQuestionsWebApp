@@ -24,6 +24,10 @@ namespace InterviewQuestions.Controllers
         {
             return View(await _context.SQL.ToListAsync());
         }
+        public async Task<IActionResult> Search()
+        {
+            return View();
+        }
 
         // GET: SQL/Details/5
         public async Task<IActionResult> Details(int? id)

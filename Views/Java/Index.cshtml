@@ -4,8 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
+<h1>Java Index</h1>
+<form asp-action="Search">
+    <input class="btn btn-outline-secondary" type="submit" value="Search">  
+</form>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -15,9 +17,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Question)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Answer)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -27,12 +27,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Question)
             </td>
+            
             <td>
-                @Html.DisplayFor(modelItem => item.Answer)
-            </td>
-            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Show Ans</a> |
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
