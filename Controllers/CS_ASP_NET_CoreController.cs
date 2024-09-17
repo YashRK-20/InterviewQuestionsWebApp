@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using InterviewQuestions.Data;
 using InterviewQuestions.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InterviewQuestions.Controllers
 {
@@ -28,6 +29,10 @@ namespace InterviewQuestions.Controllers
         {
             return View();
         }
+        public async Task<IActionResult> SearchResults(string SearchPhrase)
+        {
+            return View("Index", await _context.CS_ASP_NET_Core.Where(j => j.Question.Contains(SearchPhrase)).ToListAsync());
+        }
 
         // GET: CS_ASP_NET_Core/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -48,6 +53,7 @@ namespace InterviewQuestions.Controllers
         }
 
         // GET: CS_ASP_NET_Core/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -58,6 +64,7 @@ namespace InterviewQuestions.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("Id,Question,Answer")] CS_ASP_NET_Core cS_ASP_NET_Core)
         {
             if (ModelState.IsValid)
@@ -70,6 +77,7 @@ namespace InterviewQuestions.Controllers
         }
 
         // GET: CS_ASP_NET_Core/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -90,6 +98,7 @@ namespace InterviewQuestions.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Question,Answer")] CS_ASP_NET_Core cS_ASP_NET_Core)
         {
             if (id != cS_ASP_NET_Core.Id)
@@ -121,6 +130,7 @@ namespace InterviewQuestions.Controllers
         }
 
         // GET: CS_ASP_NET_Core/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -141,6 +151,7 @@ namespace InterviewQuestions.Controllers
         // POST: CS_ASP_NET_Core/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var cS_ASP_NET_Core = await _context.CS_ASP_NET_Core.FindAsync(id);
